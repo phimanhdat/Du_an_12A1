@@ -1,0 +1,69 @@
+<template id="kho-du-lieu-section13"></template>
+<audio id="bg-music" src="https://cdn.jsdelivr.net/gh/phimanhdat/Manh-Dat/c%C3%A2y%20%C4%91a%20qu%C3%A1n%20d%E1%BB%91c.mp3" loop></audio>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const music = document.getElementById("bg-music");
+
+    // Yêu cầu người dùng tương tác 1 lần
+    document.addEventListener("click", () => {
+        music.play().catch(err => console.log(err));
+    }, { once: true });
+});
+</script>
+<style>
+  /* Hiệu ứng bàn tay khi di chuột vào ảnh mở thiệp */
+  #IMAGE153 {
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s;
+  }
+  #IMAGE153:hover {
+    transform: scale(1.05); /* Phóng to nhẹ khi di chuột */
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var nutMoThiep = document.getElementById("IMAGE153");
+    var phanMoDau = document.getElementById("SECTION12");
+    
+    // Hàm xử lý khi bấm mở thiệp
+    function xuLyMoThiep() {
+        // 1. Lấy nội dung từ thẻ template ra
+        var khoDuLieu = document.getElementById("kho-du-lieu-section13");
+        if (!khoDuLieu) return; // Nếu đã load rồi thì thôi
+
+        var noiDungSection13 = khoDuLieu.content.cloneNode(true);
+        var ladiWraper = document.querySelector(".ladi-wraper");
+
+        // 2. Chèn SECTION13 vào trang web (Lúc này trình duyệt mới bắt đầu tải ảnh của Section 13)
+        ladiWraper.appendChild(noiDungSection13);
+
+        // 3. Xóa thẻ template đi để giải phóng bộ nhớ (tùy chọn)
+        khoDuLieu.remove();
+
+        // 4. Ẩn phần mở đầu SECTION12
+        if (phanMoDau) {
+             phanMoDau.style.display = "none";
+             // Hoặc xóa hẳn khỏi DOM nếu muốn nhẹ máy: phanMoDau.remove();
+        }
+
+        // 5. Quan trọng: Kích hoạt lại các script của LadiPage 
+        // để nó nhận diện nội dung mới (animation, lazyload, countdown...)
+        if (window.LadiPageScript && window.LadiPageScript.run) {
+            window.LadiPageScript.run(true);
+        }
+        if (window.lazyload_run) {
+             window.lazyload_run(document, false, true);
+        }
+
+        // 6. Cuộn lên đầu trang
+        window.scrollTo(0, 0);
+    }
+
+    if (nutMoThiep) {
+        nutMoThiep.addEventListener("click", xuLyMoThiep);
+    }
+});
+</script>

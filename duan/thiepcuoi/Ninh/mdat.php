@@ -1,0 +1,5 @@
+<?php
+
+$khach = "Quý Khách";
+
+?>
