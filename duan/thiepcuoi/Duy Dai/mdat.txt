@@ -1,0 +1,173 @@
+<script>
+// Tải lời chúc từ file JSON khi mở trang
+fetch('wish_list.json')
+    .then(r => r.json())
+    .then(list => {
+        list.forEach(item => {
+            addWishToList(item.name, item.wish);
+        });
+    })
+    .catch(() => {});
+</script>
+
+<script src="save.js"></script>
+<audio id="bg-music" src="https://s3-hcm-r2.s3cloud.vn/thiepcuoi-mehappy/audio-templates/8fe899fe-9769-440a-bc4c-f7171f46a5d5.mp3" loop></audio>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const music = document.getElementById('bg-music');
+
+    // Khi người dùng click anywhere trên trang
+    document.body.addEventListener('click', () => {
+      music.play();
+    }, { once: true }); // Chỉ chạy 1 lần
+  });
+</script>
+
+
+<div id="HTML_CODE24" class='ladi-element'>
+          <div class='ladi-html-code'>
+            <style>
+  /* Cài đặt box-sizing và font-family cho toàn form */
+  .rsvp-form,
+  .rsvp-form * {
+    box-sizing: border-box;
+  }
+
+  .rsvp-form {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+      Arial, sans-serif;
+    background: transparent;
+    padding: 0;
+    width: 100%;
+    color: #333; /* Thêm màu chữ cơ bản cho label */
+  }
+
+  /*
+   * QUAN TRỌNG: 
+   * Chỉ áp dụng style cho các input text, email, number và select.
+   * Tránh ảnh hưởng đến input[type="radio"]
+   */
+  .rsvp-form input[type="text"],
+  .rsvp-form input[type="email"],
+  .rsvp-form input[type="number"],
+  .rsvp-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b8b8b8;
+    background: transparent;
+    border-radius: 5px;
+    color: #333;
+    font-size: 1rem; /* Đảm bảo kích thước font nhất quán */
+    font-family: inherit; /* Kế thừa font từ form */
+  }
+
+  /* Đảm bảo option trong select hiển thị rõ ràng */
+  .rsvp-form select option {
+    color: #000;
+    background: #fff;
+  }
+
+  .rsvp-form input::placeholder {
+    color: #555;
+    opacity: 1; /* Đảm bảo placeholder rõ nét */
+  }
+
+  /* * Tạo khoảng cách đồng đều cho các nhóm phần tử.
+   * Bao gồm .rsvp-row, .rsvp-radio, và thẻ select đứng riêng.
+   */
+  .rsvp-row,
+  .rsvp-radio,
+  .rsvp-form > select {
+    margin-bottom: 10px;
+  }
+
+  .rsvp-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Tối ưu cho radio group */
+  .rsvp-radio {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các lựa chọn xuống hàng trên màn hình nhỏ */
+    gap: 10px 25px; /* 10px cho khoảng cách dọc, 25px cho ngang */
+    align-items: center;
+  }
+
+  .rsvp-radio label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap; /* Giữ chữ trên 1 hàng (như code gốc) */
+  }
+
+  /* Style riêng cho radio button để không bị ảnh hưởng */
+  .rsvp-form input[type="radio"] {
+    width: auto; /* Reset lại width */
+    accent-color: #9c6b20; /* Đổi màu của radio cho đẹp hơn */
+  }
+
+  /* Nút Submit */
+  .rsvp-submit {
+    width: 100%;
+    padding: 12px;
+    background: #9c6b20;
+    color: white;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+  }
+
+  .rsvp-submit:hover {
+    opacity: 0.9;
+  }
+</style>
+
+<form class="rsvp-form" id="rsvpForm">
+  <div class="rsvp-row">
+    <input type="text" name="name" placeholder="Họ và Tên" required="">
+    <input type="email" name="email" placeholder="Email" required="">
+  </div>
+
+  <div class="rsvp-radio">
+    <label>
+      <input type="radio" name="status" value="Có, tôi sẽ tham dự" required="">
+      Có, tôi sẽ tham dự
+    </label>
+
+    <label>
+      <input type="radio" name="status" value="Xin lỗi, tôi bận mất rồi">
+      Xin lỗi, tôi bận mất rồi
+    </label>
+  </div>
+
+  <div class="rsvp-row">
+    <select name="guest_of" required="">
+      <option value="">Khách mời của</option>
+      <option value="Nhà Trai">Nhà Trai</option>
+      <option value="Nhà Gái">Nhà Gái</option>
+    </select>
+
+    <input type="number" name="amount" placeholder="Số người tham dự" required="">
+  </div>
+
+  <select name="event" required="" style="margin-bottom: 15px;">
+    <option value="">Bạn sẽ tham gia sự kiện nào?</option>
+    <option value="Lễ Ăn Hỏi">Lễ Ăn Hỏi</option>
+    <option value="Lễ Cưới">Lễ Cưới</option>
+    <option value="Tiệc Chung">Tiệc Chung</option>
+  </select>
+
+  <button type="submit" class="rsvp-submit">Phản Hồi</button>
+</form>
+          </div>
+        </div>
+      </div>
+    </div>
