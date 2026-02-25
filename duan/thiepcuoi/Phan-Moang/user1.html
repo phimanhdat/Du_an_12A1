@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Tham Dự</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f4f7f6; padding-top: 50px; }
+        .container { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h2 { color: #d63384; font-weight: 700; margin-bottom: 30px; border-left: 5px solid #d63384; padding-left: 15px; }
+        .badge-attending { background-color: #28a745; }
+        .badge-busy { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2><i class="fas fa-list"></i> Khách Mời Xác Nhận</h2>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Họ Tên</th>
+                    <th>Điện thoại</th>
+                    <th>Người đi cùng</th>
+                    <th>Nơi dự</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody id="data-table">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    fetch('data.json')
+    .then(r => r.json())
+    .then(data => {
+        const table = document.getElementById('data-table');
+        data.forEach(item => {
+            const statusClass = item.attendance.includes('Có') ? 'badge-attending' : 'badge-busy';
+            table.innerHTML += `
+                <tr>
+                    <td><strong>${item.name}</strong></td>
+                    <td>${item.phone}</td>
+                    <td><span class="badge bg-secondary">${item.guests}</span></td>
+                    <td>${item.location}</td>
+                    <td><span class="badge ${statusClass}">${item.attendance}</span></td>
+                </tr>`;
+        });
+    });
+</script>
+</body>
+</html>
