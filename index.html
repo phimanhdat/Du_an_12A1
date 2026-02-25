@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio cá nhân của Mạnh Đạt - học sinh đam mê lập trình và an toàn thông tin. Khám phá kỹ năng, dự án và liên hệ.">
+  <title>Manh Dat</title>
+  <link rel="stylesheet" href="mdat.css">
+</head>
+<body>
+  <div class="leaves"></div>
+<header>
+  <h2 class="logo">Manh Dat</h2>
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  <nav class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+<section id="home" class="kk">
+  <div class="overlay"></div>
+
+  <div class="content">
+    <div class="avatar">
+      <img src="anh/avatar.jpg" alt="avatar">
+    </div>
+
+    <h1>Xin chào, tôi là <span>Mạnh Đạt</span> 👋</h1>
+    <p>Học sinh đam mê lập trình & an toàn thông tin</p>
+    <a href="#about" class="btn">Khám phá</a>
+  </div>
+</section>
+<section id="about">
+  <h2>Giới thiệu</h2>
+  <p>
+    Tôi là một học sinh yêu thích công nghệ, đặc biệt là lập trình web.
+    Tôi đang học HTML, CSS và muốn tạo ra những website đẹp và sáng tạo.
+  </p>
+</section>
+<section id="skills">
+  <h2>Kỹ năng</h2>
+  <div class="ky_nang">
+    <p>HTML</p>
+    <div class="bar"><div style="width:60%"></div></div>
+  </div>
+  <div class="ky_nang">
+    <p>CSS</p>
+    <div class="bar"><div style="width:40%"></div></div>
+  </div>
+  <div class="ky_nang">
+    <p>C++</p>
+    <div class="bar"><div style="width:100%"></div></div>
+  </div>
+    <div class="ky_nang">
+        <p>PYHTON</p>
+        <div class="bar"><div style="width:95%"></div></div>
+    </div>
+</section>
+<section id="projects">
+  <h2>Dự án<br>Nhấn vào các thẻ để xem dự án</br></h2>
+  <div class="du_an">
+    <div class="card" onclick="goTo('duan/nhac')">
+  <h3>Web nghe nhạc</h3>
+  <p>Trang web phát nhạc đơn giản</p>
+</div>
+<div class="card" onclick="goTo('duan/thiepcuoi')">
+  <h3>Web thiệp cưới</h3>
+  <p>Thiết kế thiệp online đẹp mắt</p>
+</div>
+<div class="card" onclick="goTo('duan/portfolio')">
+  <h3>Portfolio cá nhân</h3>
+  <p>Trang web giới thiệu bản thân</p>
+</div>
+  </div>
+</section>
+<section id="contact">
+  <h2>Liên hệ</h2>
+  <p>Email: phimanhdat21@gmail.com</p>
+  <p>Facebook: Mạnh Đạt💋</p>
+</section>
+<footer>
+  <div class="footer-content">
+    <p>&copy; <span id="footerYear"></span> Manh Dat</p>
+    <p>Designed with 💻 by Mạnh Đạt</p>
+  </div>
+</footer>
+<div id="popupGuide" class="popup">
+  <div class="popup-box">
+    <button class="close-btn" onclick="closePopup()">✕</button>
+    <h2>👋 Chào bạn!</h2>
+    <p>
+      🎵 Nhấn nút <b>🎵</b> ở góc dưới bên phải để bật nhạc<br><br>
+      📜 Cuộn xuống để xem nội dung<br><br>
+      💡 Trải nghiệm tốt nhất trên máy tính<br><br>
+      💋 Nhấn vào các thẻ ở phần dự án để xem dự án<br><br>
+      🛜 Nếu có wifi thì sẽ hạn chế lỗi nhiều nhất
+    </p>
+    <p id="countdown">⏳ Vui lòng chờ 10s...</p>
+    <button id="startBtn" onclick="closePopup()" disabled>Bắt đầu</button>
+  </div>
+</div>
+<audio id="music" loop>
+  <source src="nhac/mdat.mp3" type="audio/mpeg">
+</audio>
+<button onclick="toggleMusic()" class="btn_nhac">🎵</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const popup = document.getElementById("popupGuide");
+  const startBtn = document.getElementById("startBtn");
+  const countdownEl = document.getElementById("countdown");
+  const music = document.getElementById("music");
+  window.toggleMusic = function(){
+    if(music.paused){
+      music.play();
+    } else {
+      music.pause();
+    }
+  }
+  function closePopup(){
+    popup.style.display = "none";
+    localStorage.setItem("seenPopup","true");
+  }
+  window.closePopup = closePopup;
+  //if(!localStorage.getItem("seenPopup")){
+    popup.style.display = "flex";
+    startCountdown();
+  //}
+  popup.addEventListener("click", function(e){
+    if(e.target === popup){
+      closePopup();
+    }
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+      closePopup();
+    }
+  });
+  function startCountdown(){
+    let timeLeft = 10;
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownEl.innerText = `⏳ Vui lòng chờ ${timeLeft}s...`;
+
+      if(timeLeft <= 0){
+        clearInterval(timer);
+        countdownEl.innerText = "✅ Bạn có thể bắt đầu!";
+        startBtn.disabled = false;
+        startBtn.classList.add("active");
+      }
+    }, 1000);
+  }
+  window.goTo = function(path){
+    window.location.href = path + "/index.html";
+  }
+
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 80;
+      if(pageYOffset >= top) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+  const yearEl = document.getElementById('footerYear');
+  if(yearEl){
+    yearEl.textContent = new Date().getFullYear();
+  }
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 50){
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const container = document.querySelector(".leaves");
+  function createLeaf(){
+    const leaf = document.createElement("div");
+    leaf.classList.add("leaf");
+    leaf.style.left = Math.random() * 100 + "vw";
+    const size = Math.random() * 30 + 20;
+    leaf.style.width = size + "px";
+    leaf.style.height = size + "px";
+    leaf.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    leaf.style.animationDelay = Math.random() * 5 + "s";
+    container.appendChild(leaf);
+    setTimeout(()=>{
+      leaf.remove();
+    }, 10000);
+  }
+  setInterval(createLeaf, 500);
+
+});
+</script>
+</body>
+</html>
